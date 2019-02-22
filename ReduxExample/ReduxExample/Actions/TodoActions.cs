@@ -10,4 +10,8 @@ namespace ReduxExample.Actions {
     public class AddTodoAction : ITodoAction {
         public Todo Todo { get; set; }
     }
+
+    public class RemoveTodoAction: ITodoAction {
+        public Todo Todo { get; set; }
+    }
 }

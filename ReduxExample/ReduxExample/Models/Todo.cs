@@ -2,6 +2,6 @@
 
 namespace ReduxExample.Models {
     public class Todo {
-        public string Text { get; set; }
+        public String Text { get; set; }
     }
 }

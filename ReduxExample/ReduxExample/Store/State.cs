@@ -12,6 +12,7 @@ namespace ReduxExample.Store {
     }
 
     public class TodoState {
+        public Int32 LastId { get; set; }
         public ObservableCollection<Todo> Todos { get; set; }
     }
 }

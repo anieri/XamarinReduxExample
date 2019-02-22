@@ -9,17 +9,20 @@
     </ContentPage.BindingContext>
 
     <ContentPage.Content>
-        <StackLayout>
+        <StackLayout Padding="4">
             <StackLayout Orientation="Horizontal">
-                <Entry Text="{Binding NewText}" />
+                <Entry Text="{Binding NewText}" HorizontalOptions="FillAndExpand" />
                 <Button Command="{Binding NewTodoCommand}" Text="Add" />
             </StackLayout>
-            
-            <ListView ItemsSource="{Binding Todos}">
+
+            <ListView ItemsSource="{Binding Todos}" x:Name="TodoList">
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <ViewCell>
-                            <Label Text="{Binding Text}" />
+                            <StackLayout Orientation="Horizontal">
+                                <Label Text="{Binding Text}" HorizontalOptions="FillAndExpand"/>
+                                <Button Command="{Binding Source={x:Reference TodoList}, Path=BindingContext.RemoveTodoCommand}" CommandParameter="{Binding .}" Text="Remove" />
+                            </StackLayout>
                         </ViewCell>
                     </DataTemplate>
                 </ListView.ItemTemplate>

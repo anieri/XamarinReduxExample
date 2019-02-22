@@ -8,11 +8,19 @@ using System.Collections.ObjectModel;
 namespace ReduxExample.ViewModels {
     public class TodoViewModel : BaseViewModel {
         public Command NewTodoCommand { get; private set; }
+        public Command RemoveTodoCommand { get; private set; }
 
         public TodoViewModel() {
             App.Store.Subscribe<TodoState>(todo => this.Todos = todo.Todos);
 
             this.NewTodoCommand = new Command(this.AddTodo, () => !String.IsNullOrEmpty(this.NewText));
+            this.RemoveTodoCommand = new Command(this.RemoveTodo);
+        }
+
+        private void RemoveTodo(Object arg) {
+            App.Store.Dispatch(new RemoveTodoAction {
+                Todo = arg as Todo,
+            });
         }
 
         private void AddTodo() {
