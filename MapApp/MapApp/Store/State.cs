@@ -3,6 +3,7 @@ using MapApp.Models;
 using System;
 using System.Collections.Generic;
 using System.Collections.Immutable;
+using System.Collections.ObjectModel;
 using System.Text;
 
 namespace MapApp.Store {
@@ -11,6 +12,6 @@ namespace MapApp.Store {
     }
 
     public class TodoState {
-        public ImmutableList<Todo> Todos { get; set; }
+        public ObservableCollection<Todo> Todos { get; set; }
     }
 }

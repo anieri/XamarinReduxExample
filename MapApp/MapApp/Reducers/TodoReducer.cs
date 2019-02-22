@@ -8,8 +8,9 @@ namespace MapApp.Reducers {
     public static class TodoReducer {
         public static TodoState Reduce(TodoState prevState, ITodoAction todoAction) {
             if (todoAction is AddTodoAction addTodoAction) {
+                prevState.Todos.Add(addTodoAction.Todo);
                 return new TodoState {
-                    Todos = prevState.Todos.Add(addTodoAction.Todo),
+                    Todos = prevState.Todos,
                 };
             }
 

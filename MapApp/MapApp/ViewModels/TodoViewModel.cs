@@ -1,12 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Runtime.CompilerServices;
 using Xamarin.Forms;
 using MapApp.Models;
-using System.Collections.Immutable;
 using MapApp.Store;
 using MapApp.Actions;
+using System.Collections.ObjectModel;
 
 namespace MapApp.ViewModels {
     public class TodoViewModel : BaseViewModel {
@@ -28,8 +25,8 @@ namespace MapApp.ViewModels {
             this.NewText = "";
         }
 
-        private ImmutableList<Todo> todos;
-        public ImmutableList<Todo> Todos {
+        private ObservableCollection<Todo> todos;
+        public ObservableCollection<Todo> Todos {
             get { return this.todos; }
             set { this.SetProperty(ref this.todos, value); }
         }

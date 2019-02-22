@@ -4,6 +4,7 @@ using Xamarin.Forms.Xaml;
 using MapApp.Views;
 using MapApp.Store;
 using System.Collections.Immutable;
+using System.Collections.ObjectModel;
 
 [assembly: XamlCompilation(XamlCompilationOptions.Compile)]
 namespace MapApp {
@@ -11,7 +12,7 @@ namespace MapApp {
 
         private static readonly State initialState = new State {
             Todo = new TodoState {
-                Todos = ImmutableList<Models.Todo>.Empty,
+                Todos = new ObservableCollection<Models.Todo>(),
             },
         };
 
