@@ -13,7 +13,7 @@ namespace ReduxExample.Store {
 
         public Store(Func<State, IAction, State> reducer, State initialState) {
             this.reducer = reducer;
-            this.state = initialState;
+            this.state = initialState ?? throw new ArgumentNullException("initialState cannot be null");
         }
 
         public void Subscribe<T>(Action<T> handler) {
@@ -21,11 +21,14 @@ namespace ReduxExample.Store {
         }
 
         public void Dispatch<T>(T action) where T : IAction {
-            this.state = this.reducer?.Invoke(this.state, action);
+            State prevState = this.state;
+            this.state = this.reducer?.Invoke(prevState, action);
 
-            // Publish changes
-            // For now, it's recommended to check for equality, as it will publish for every action regardless of changes
-            this.hub.Publish(data: this.state?.Todo);
+            // Publish changes to the State objects.
+            // This only does a shallow compare, you should do a deep compare inside the Subscribed method.
+            if (prevState.Todo != this.state.Todo) {
+                this.hub.Publish(data: this.state.Todo);
+            }
         }
     }
 }
