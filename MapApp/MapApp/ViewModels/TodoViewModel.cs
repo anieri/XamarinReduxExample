@@ -9,9 +9,7 @@ using MapApp.Store;
 using MapApp.Actions;
 
 namespace MapApp.ViewModels {
-    public class TodoViewModel : INotifyPropertyChanged {
-        public event PropertyChangedEventHandler PropertyChanged;
-
+    public class TodoViewModel : BaseViewModel {
         public Command NewTodoCommand { get; private set; }
 
         public TodoViewModel() {
@@ -39,24 +37,9 @@ namespace MapApp.ViewModels {
         private String newText = "";
         public String NewText {
             get { return this.newText; }
-            set { this.SetProperty(ref this.newText, value, "NewText", () => this.NewTodoCommand.ChangeCanExecute()); }
+            set { this.SetProperty(ref this.newText, value, onChanged: this.UpdateButton); }
         }
 
-        #region INotify Boilerplate
-        public Boolean SetProperty<T>(ref T backingStore, T value, [CallerMemberName]String propertyName = "", Action onChanged = null) {
-            if (EqualityComparer<T>.Default.Equals(backingStore, value)) {
-                return false;
-            }
-
-            backingStore = value;
-            onChanged?.Invoke();
-            this.OnPropertyChanged(propertyName);
-            return true;
-        }
-
-        public void OnPropertyChanged([CallerMemberName] String propertyName = "") {
-            this.PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
-        #endregion
+        private void UpdateButton() => this.NewTodoCommand.ChangeCanExecute();
     }
 }
